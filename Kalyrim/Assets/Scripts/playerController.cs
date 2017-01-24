@@ -5,7 +5,7 @@ public class playerController : MonoBehaviour {
 
     private Vector3 playerPosition;
     public float speed = 5f;
-    public float jumpForce = 5f;
+    public float jumpForce = 100f;
 
     private bool standingOnGround = true;
     private bool hasChangedGravity = false;
@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         playerJump();
         playerConstantRunning();
         playerChangeGravity();
@@ -26,9 +26,10 @@ public class playerController : MonoBehaviour {
 
     void playerConstantRunning()
     {
-        Vector3 position = transform.position;
-        position[0] += speed;
-        transform.position = position;
+        //Vector3 position = transform.position;
+        //position[0] += speed;
+        //transform.position = position;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(10, GetComponent<Rigidbody2D>().velocity.y);
     }
 
     /*
@@ -48,7 +49,6 @@ public class playerController : MonoBehaviour {
                 {
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
                 }
-
                 else
                 {
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, -jumpForce));
@@ -63,7 +63,14 @@ public class playerController : MonoBehaviour {
         {
             Physics2D.gravity *= -1;
             hasChangedGravity = !hasChangedGravity;
-            Debug.Log ("Swag2");
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if(coll.gameObject.tag == "Platform")
+        {
+            SendMessageUpwards("ScreenShake", GetComponent<Rigidbody2D>().velocity.y);
         }
     }
 }

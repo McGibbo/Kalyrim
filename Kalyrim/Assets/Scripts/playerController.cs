@@ -48,7 +48,6 @@ public class playerController : MonoBehaviour {
                 {
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
                 }
-
                 else
                 {
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, -jumpForce));
@@ -63,7 +62,14 @@ public class playerController : MonoBehaviour {
         {
             Physics2D.gravity *= -1;
             hasChangedGravity = !hasChangedGravity;
-            Debug.Log ("Swag2");
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if(coll.gameObject.tag == "Platform")
+        {
+            SendMessageUpwards("ScreenShake", GetComponent<Rigidbody2D>().velocity.y);
         }
     }
 }

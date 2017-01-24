@@ -5,7 +5,7 @@ public class playerController : MonoBehaviour {
 
     private Vector3 playerPosition;
     public float speed = 5f;
-    public float jumpForce = 100f;
+    public float jumpForce = 5f;
 
     private bool standingOnGround = true;
     private bool hasChangedGravity = false;
@@ -26,10 +26,9 @@ public class playerController : MonoBehaviour {
 
     void playerConstantRunning()
     {
-        //Vector3 position = transform.position;
-        //position[0] += speed;
-        //transform.position = position;
-        GetComponent<Rigidbody2D>().velocity = new Vector2(10, GetComponent<Rigidbody2D>().velocity.y);
+        Vector3 position = transform.position;
+        position[0] += speed;
+        transform.position = position;
     }
 
     /*

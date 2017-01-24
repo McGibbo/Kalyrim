@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         playerJump();
         playerConstantRunning();
         playerChangeGravity();

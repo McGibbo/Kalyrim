@@ -15,7 +15,7 @@ public class CameraScript : MonoBehaviour {
 
     void Start()
     {
-        originalYPos = transform.position.y;
+        
     }
 
     void Update () {
@@ -26,6 +26,7 @@ public class CameraScript : MonoBehaviour {
     {
         shakeDurationPrivate = shakeDuration;
         cameraShakeAmount = shakeAmount;
+        originalYPos = transform.position.y;
     }
 
     void screenShake()
@@ -41,7 +42,7 @@ public class CameraScript : MonoBehaviour {
         }
         else
         {
-            transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
+            //transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
         }
     }
 

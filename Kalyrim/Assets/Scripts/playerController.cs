@@ -4,17 +4,19 @@ using System.Collections;
 public class playerController : MonoBehaviour {
 
     private Vector3 playerPosition;
-    public float speed = 5f;
-    public float jumpForce = 5f;
 
-    private bool standingOnGround = true;
+    private float lockFloat = 0f;
+    private bool standingOnGround = false;
     private bool hasChangedGravity = false;
 
-    public Rigidbody2D rb;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 5f;
+
+    public Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -26,50 +28,31 @@ public class playerController : MonoBehaviour {
 
     void playerConstantRunning()
     {
-        Vector3 position = transform.position;
-        position[0] += speed;
-        transform.position = position;
+        rb.velocity = new Vector3(speed, rb.velocity.y, lockFloat);
     }
 
-    /*
-    void OnCollisionStay(Collision)
+    
+    void OnCollisionStay(Collision collision)
     {
-
+        standingOnGround = true;
     }
-    */
+
 
     void playerJump()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && standingOnGround == true)
         {
-            if (standingOnGround == true)
-            {
-                if (hasChangedGravity == false)
-                {
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
-                }
-                else
-                {
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, -jumpForce));
-                }
-            }
+            GetComponent<Rigidbody>().AddForce(new Vector3(0f, jumpForce, 0f));
         }
     }
-    
+
     void playerChangeGravity()
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            Physics2D.gravity *= -1;
+            Physics.gravity *= -1;
             hasChangedGravity = !hasChangedGravity;
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if(coll.gameObject.tag == "Platform")
-        {
-            SendMessageUpwards("ScreenShake", GetComponent<Rigidbody2D>().velocity.y);
+            Debug.Log ("Swag2");
         }
     }
 }

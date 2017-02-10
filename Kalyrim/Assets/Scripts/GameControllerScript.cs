@@ -20,8 +20,6 @@ public class GameControllerScript : MonoBehaviour
     float cameraLatencyAmountX;
     [SerializeField]
     float cameraLatencyAmountY;
-    float playerSpeedX;
-    float playerSpeedY;
 
     void Start()
     {
@@ -30,19 +28,26 @@ public class GameControllerScript : MonoBehaviour
         cameraScript = mainCamera.GetComponent<CameraController>();
         oldPlayerPos = player.transform.position;
     }
-
-
     void FixedUpdate()
     {
         MoveCamera();
     }
-
     void Update()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            SceneManager.LoadScene(0);
+            StartOverLevel();
         }
+    }
+
+    public void StartOverLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void CollectCrystal()
+    {
+
     }
 
     void MoveCamera()
@@ -61,20 +66,16 @@ public class GameControllerScript : MonoBehaviour
             {
                 cameraLatencyAmountX = 1f;
             }
-
             newPlayerPos = player.transform.position;
-            playerSpeedX = newPlayerPos.x - oldPlayerPos.x;
-            playerSpeedY = newPlayerPos.y - oldPlayerPos.y;
             mainCamera.transform.position += new Vector3((newPlayerPos.x - oldPlayerPos.x) * cameraLatencyAmountX, (newPlayerPos.y - oldPlayerPos.y) * cameraLatencyAmountY, 0);
             oldPlayerPos = player.transform.position;
         }
-
     }
 
-
-    public void ScreenShake()
+    public void ScreenShake(float playerYSpeed)
     {
-        cameraScript.StartScreenShake(playerSpeedY * -1 * shakeAmount);
+        cameraScript.StartScreenShake(playerYSpeed * 100000000000 * shakeAmount);
+        Debug.Log(playerYSpeed * 100000000000 * shakeAmount);
     }
 
 }

@@ -10,15 +10,27 @@ public class ColorToPrefab
     public enum ObjectTag {
         None,
         LeftPlatform,
-        RightPlatform
+        RightPlatform,
+        Crystal
     }
+    public bool fliped;
 }
 
 public class DrawLevel : MonoBehaviour
 {
+    GameObject tempPlatform;
     public Texture2D levelMap;
+    public ZMap zMap;
+    public enum ZMap
+    {
+        Back,
+        Middle,
+        Front
+    }
     public ColorToPrefab[] colorToPrefab;
     DrawCollisionBox dcb;
+    float flipedValue = 1;
+    int mapZPos;
 
 	void Start ()
     {
@@ -48,13 +60,12 @@ public class DrawLevel : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                SpawnTile(allPixels[(y * width) + x], x, y);
+                SpawnTile(allPixels[(y * width) + x], x + 0.5f, y + 0.5f);
             }
         }
-
     }
 
-    void SpawnTile(Color32 c, int x, int y)
+    void SpawnTile(Color32 c, float x, float y)
     {
         if (c.a <= 0)
             return;
@@ -63,9 +74,31 @@ public class DrawLevel : MonoBehaviour
         {
             if (c.Equals(ctp.color))
             {
-                Instantiate(ctp.prefab, new Vector3(x, y, 0), Quaternion.identity);
+                if (ctp.fliped)
+                {
+                    flipedValue = -1;
+                }
+                else
+                {
+                    flipedValue = 1;
+                }
 
+                switch (zMap)
+                {
+                    case ZMap.Back:
+                        mapZPos = 1;
+                        break;
 
+                    case ZMap.Middle:
+                        mapZPos = 0;
+                        break;
+                    case ZMap.Front:
+                        mapZPos = -1;
+                        break;
+                }
+
+                tempPlatform =  Instantiate(ctp.prefab, new Vector3(x, y, mapZPos), Quaternion.identity)as GameObject;
+                tempPlatform.transform.localScale = new Vector3(tempPlatform.transform.localScale.x, tempPlatform.transform.localScale.y * flipedValue, tempPlatform.transform.localScale.z);
 
                 switch (ctp.objectTag)
                 {
@@ -78,14 +111,18 @@ public class DrawLevel : MonoBehaviour
 
                     case ColorToPrefab.ObjectTag.RightPlatform:
                         dcb.SaveRightValue(x);
-                        dcb.SpawnCollisionPlatform(y);
+                        dcb.SpawnCollisionPlatform(y, ctp.fliped);
+                        break;
+
+                    case ColorToPrefab.ObjectTag.Crystal:
+
                         break;
                 }
                 return;
             }
             
         }
-        Debug.LogError("Incorrect Color: " + c.ToString() + "\n Position: (" + x.ToString() + "x, " + y.ToString() + "y) from the bottom left of the screen");
+        Debug.LogError("Map: " + levelMap.name.ToString() + " " + zMap.ToString() + "\n Incorrect Color: " + c.ToString() + "\n Position: (" + x.ToString() + "x, " + y.ToString() + "y) from the bottom left of the screen");
         
     }
 

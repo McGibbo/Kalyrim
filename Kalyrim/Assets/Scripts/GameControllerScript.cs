@@ -14,36 +14,55 @@ public class GameControllerScript : MonoBehaviour
     CameraController cameraScript;
     Vector3 oldPlayerPos = new Vector3(0, 0, 0);
     Vector3 newPlayerPos = new Vector3(0, 0, 0);
+    float playerSpeedX;
+    float playerSpeedY;
     float cameraLatencyX = 0;
     float cameraLatencyY = 0;
     [SerializeField]
     float cameraLatencyAmountX;
     [SerializeField]
     float cameraLatencyAmountY;
-    float playerSpeedX;
-    float playerSpeedY;
+    List<Vector3> crystalList;
+    public GameObject gameObj;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = Camera.main;
         cameraScript = mainCamera.GetComponent<CameraController>();
         oldPlayerPos = player.transform.position;
     }
-
-
     void FixedUpdate()
     {
         MoveCamera();
     }
-
     void Update()
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            SceneManager.LoadScene(0);
+            StartOverLevel();
         }
     }
+
+    public void StartOverLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void CollectCrystal(Vector3 coll)
+    {
+        crystalList.Add(coll);
+        
+    }
+
+    public void SpawnCrystals()
+    {
+        foreach (Vector3 cL in crystalList)
+        {
+            Instantiate(gameObj, cL, Quaternion.identity);
+        }
+    }
+
 
     void MoveCamera()
     {
@@ -61,16 +80,13 @@ public class GameControllerScript : MonoBehaviour
             {
                 cameraLatencyAmountX = 1f;
             }
-
             newPlayerPos = player.transform.position;
             playerSpeedX = newPlayerPos.x - oldPlayerPos.x;
             playerSpeedY = newPlayerPos.y - oldPlayerPos.y;
             mainCamera.transform.position += new Vector3((newPlayerPos.x - oldPlayerPos.x) * cameraLatencyAmountX, (newPlayerPos.y - oldPlayerPos.y) * cameraLatencyAmountY, 0);
             oldPlayerPos = player.transform.position;
         }
-
     }
-
 
     public void ScreenShake()
     {

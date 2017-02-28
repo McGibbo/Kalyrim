@@ -25,6 +25,10 @@ public class CameraController : MonoBehaviour
 
     public void StartScreenShake(float shakeAmount)
     {
+        if (shakeDurationPrivate <= 0)
+        {
+            originalYPos = transform.position.y;
+        }
         shakeDurationPrivate = shakeDuration;
         if(cameraShakeAmount < shakeSpeed)
         {
@@ -34,7 +38,6 @@ public class CameraController : MonoBehaviour
         {
             cameraShakeAmount = shakeAmount;
         }
-        originalYPos = transform.position.y;
         resetPosition = true;
     }
 
@@ -55,5 +58,4 @@ public class CameraController : MonoBehaviour
             resetPosition = false;
         }
     }
-
 }

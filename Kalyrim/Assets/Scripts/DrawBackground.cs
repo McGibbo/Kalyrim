@@ -7,11 +7,15 @@ public class ColorToPrefabBG
     public Color32 color;
     public GameObject prefab;
 }
-
+[ExecuteInEditMode]
 public class DrawBackground : MonoBehaviour
 {
     public Texture2D levelMap;
+    public GameObject parent;
+    public float xPos, yPos, zPos;
     public ColorToPrefabBG[] colorToPrefab;
+
+    GameObject tempPlatform;
 
     void Start()
     {
@@ -39,8 +43,9 @@ public class DrawBackground : MonoBehaviour
         {
             if (c.Equals(ctp.color))
             {
-                
-                Instantiate(ctp.prefab, new Vector3(x * 15 - 10, y * 15 - 10, 5), ctp.prefab.transform.rotation);
+
+                tempPlatform = Instantiate(ctp.prefab, new Vector3(x * 15 + xPos, y * 15 + yPos, zPos), ctp.prefab.transform.rotation) as GameObject;
+                tempPlatform.transform.parent = parent.transform;
                 return;
             }
         }

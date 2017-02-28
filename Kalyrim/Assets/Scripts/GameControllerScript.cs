@@ -24,13 +24,18 @@ public class GameControllerScript : MonoBehaviour
     float cameraLatencyAmountY;
     List<Vector3> crystalList;
     public GameObject gameObj;
+    UIGameController uIGameController;
+    Vector3 currentSpawnPos;
+    EditmodeInformation editmodeInformation;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        mainCamera = Camera.main;
-        cameraScript = mainCamera.GetComponent<CameraController>();
+        uIGameController = GameObject.FindGameObjectWithTag("GameCanvas").GetComponent<UIGameController>();
         oldPlayerPos = player.transform.position;
+        crystalList = new List<Vector3>();
+        //editmodeInformation = GameObject.FindGameObjectWithTag("EditorInformationGatherer").GetComponent<EditmodeInformation>();
+        
     }
     void FixedUpdate()
     {
@@ -42,27 +47,60 @@ public class GameControllerScript : MonoBehaviour
         {
             StartOverLevel();
         }
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+        if (cameraScript == null)
+        {
+            cameraScript = mainCamera.GetComponent<CameraController>();
+        }
     }
 
     public void StartOverLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void CollectCrystal(Vector3 coll)
     {
         crystalList.Add(coll);
-        
+        uIGameController.ChangeCrystalCounter(1);
     }
+
+    public void ChangeDeathCounter()
+    {
+        uIGameController.ChangeDeathCounter(1);
+    }
+
+    public void FinishLevel()
+    {
+        uIGameController.AddCoverUp();
+    }
+
+    public void EndLevel()
+    {
+
+    }
+
 
     public void SpawnCrystals()
     {
-        foreach (Vector3 cL in crystalList)
+        for (int i = 0; i < crystalList.Count; i++)
         {
-            Instantiate(gameObj, cL, Quaternion.identity);
+            if(crystalList[i].x > currentSpawnPos.x)
+            {
+                Instantiate(gameObj, crystalList[i], Quaternion.identity);
+                uIGameController.ChangeCrystalCounter(-1);
+            }
         }
+        crystalList = new List<Vector3>();
     }
 
+    public void GetCurrentSpawnPos(Vector3 spawnPos)
+    {
+        currentSpawnPos = spawnPos;
+    }
 
     void MoveCamera()
     {
@@ -83,14 +121,14 @@ public class GameControllerScript : MonoBehaviour
             newPlayerPos = player.transform.position;
             playerSpeedX = newPlayerPos.x - oldPlayerPos.x;
             playerSpeedY = newPlayerPos.y - oldPlayerPos.y;
-            mainCamera.transform.position += new Vector3((newPlayerPos.x - oldPlayerPos.x) * cameraLatencyAmountX, (newPlayerPos.y - oldPlayerPos.y) * cameraLatencyAmountY, 0);
+            mainCamera.transform.position += new Vector3((playerSpeedX) * cameraLatencyAmountX, (playerSpeedY) * cameraLatencyAmountY, 0);
             oldPlayerPos = player.transform.position;
         }
     }
 
     public void ScreenShake()
     {
-        cameraScript.StartScreenShake(playerSpeedY * -1 * shakeAmount);
+        //cameraScript.StartScreenShake(playerSpeedY * -1 * shakeAmount);
     }
 
 }

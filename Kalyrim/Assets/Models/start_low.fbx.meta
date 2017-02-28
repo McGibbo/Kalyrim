@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 74a592fe540709248ac47b75e7914af7
+timeCreated: 1487778165
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: backside_low
+    100002: banner_1_low
+    100004: banner_2_low
+    100006: banner_3_low
+    100008: gate_left_low
+    100010: gate_right_low
+    100012: gate_top_left_low
+    100014: gate_top_low
+    100016: gate_top_right_low
+    100018: great_pillar_left_low
+    100020: great_pillar_right
+    100022: pillar_10_low
+    100024: pillar_1_low
+    100026: pillar_2_low
+    100028: pillar_3_low
+    100030: pillar_4_low
+    100032: pillar_5_low
+    100034: pillar_6_low
+    100036: pillar_7_low
+    100038: pillar_8_low
+    100040: pillar_9_low
+    100042: platform_low
+    100044: room_low
+    100046: //RootNode
+    400000: backside_low
+    400002: banner_1_low
+    400004: banner_2_low
+    400006: banner_3_low
+    400008: gate_left_low
+    400010: gate_right_low
+    400012: gate_top_left_low
+    400014: gate_top_low
+    400016: gate_top_right_low
+    400018: great_pillar_left_low
+    400020: great_pillar_right
+    400022: pillar_10_low
+    400024: pillar_1_low
+    400026: pillar_2_low
+    400028: pillar_3_low
+    400030: pillar_4_low
+    400032: pillar_5_low
+    400034: pillar_6_low
+    400036: pillar_7_low
+    400038: pillar_8_low
+    400040: pillar_9_low
+    400042: platform_low
+    400044: room_low
+    400046: //RootNode
+    2300000: backside_low
+    2300002: banner_1_low
+    2300004: banner_2_low
+    2300006: banner_3_low
+    2300008: gate_left_low
+    2300010: gate_right_low
+    2300012: gate_top_left_low
+    2300014: gate_top_low
+    2300016: gate_top_right_low
+    2300018: great_pillar_left_low
+    2300020: great_pillar_right
+    2300022: pillar_10_low
+    2300024: pillar_1_low
+    2300026: pillar_2_low
+    2300028: pillar_3_low
+    2300030: pillar_4_low
+    2300032: pillar_5_low
+    2300034: pillar_6_low
+    2300036: pillar_7_low
+    2300038: pillar_8_low
+    2300040: pillar_9_low
+    2300042: platform_low
+    2300044: room_low
+    3300000: backside_low
+    3300002: banner_1_low
+    3300004: banner_2_low
+    3300006: banner_3_low
+    3300008: gate_left_low
+    3300010: gate_right_low
+    3300012: gate_top_left_low
+    3300014: gate_top_low
+    3300016: gate_top_right_low
+    3300018: great_pillar_left_low
+    3300020: great_pillar_right
+    3300022: pillar_10_low
+    3300024: pillar_1_low
+    3300026: pillar_2_low
+    3300028: pillar_3_low
+    3300030: pillar_4_low
+    3300032: pillar_5_low
+    3300034: pillar_6_low
+    3300036: pillar_7_low
+    3300038: pillar_8_low
+    3300040: pillar_9_low
+    3300042: platform_low
+    3300044: room_low
+    4300000: gate_top_low
+    4300002: gate_top_left_low
+    4300004: gate_left_low
+    4300006: pillar_1_low
+    4300008: gate_top_right_low
+    4300010: gate_right_low
+    4300012: great_pillar_right
+    4300014: pillar_2_low
+    4300016: pillar_3_low
+    4300018: great_pillar_left_low
+    4300020: pillar_4_low
+    4300022: pillar_5_low
+    4300024: pillar_6_low
+    4300026: pillar_7_low
+    4300028: pillar_8_low
+    4300030: banner_1_low
+    4300032: pillar_9_low
+    4300034: pillar_10_low
+    4300036: banner_2_low
+    4300038: banner_3_low
+    4300040: backside_low
+    4300042: room_low
+    4300044: platform_low
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

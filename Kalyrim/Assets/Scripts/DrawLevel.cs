@@ -7,7 +7,8 @@ public class ColorToPrefab
     public Color32 color;
     public GameObject prefab;
     public ObjectTag objectTag;
-    public enum ObjectTag {
+    public enum ObjectTag
+    {
         None,
         LeftPlatform,
         RightPlatform,
@@ -16,10 +17,12 @@ public class ColorToPrefab
     public bool fliped;
 }
 
+[ExecuteInEditMode]
 public class DrawLevel : MonoBehaviour
 {
     GameObject tempPlatform;
     public Texture2D levelMap;
+    public GameObject middleMapParent;
     public ZMap zMap;
     public enum ZMap
     {
@@ -31,12 +34,16 @@ public class DrawLevel : MonoBehaviour
     DrawCollisionBox dcb;
     float flipedValue = 1;
     int mapZPos;
+    int crystalCount;
 
-	void Start ()
+    void Start()
     {
         dcb = GetComponent<DrawCollisionBox>();
+        PlayerPrefs.SetInt("Crystals", 0);
         LoadMap();
-	}
+
+    }
+
 
     //void EmptyMap()
     //{
@@ -70,7 +77,7 @@ public class DrawLevel : MonoBehaviour
         if (c.a <= 0)
             return;
 
-        foreach(ColorToPrefab ctp in colorToPrefab)
+        foreach (ColorToPrefab ctp in colorToPrefab)
         {
             if (c.Equals(ctp.color))
             {
@@ -97,8 +104,9 @@ public class DrawLevel : MonoBehaviour
                         break;
                 }
 
-                tempPlatform =  Instantiate(ctp.prefab, new Vector3(x, y, mapZPos), Quaternion.identity)as GameObject;
+                tempPlatform = Instantiate(ctp.prefab, new Vector3(x, y, mapZPos), Quaternion.identity) as GameObject;
                 tempPlatform.transform.localScale = new Vector3(tempPlatform.transform.localScale.x, tempPlatform.transform.localScale.y * flipedValue, tempPlatform.transform.localScale.z);
+                tempPlatform.transform.parent = middleMapParent.transform;
 
                 switch (ctp.objectTag)
                 {
@@ -115,15 +123,20 @@ public class DrawLevel : MonoBehaviour
                         break;
 
                     case ColorToPrefab.ObjectTag.Crystal:
-
+                        PlayerPrefs.SetInt("Crystals", PlayerPrefs.GetInt("Crystals") + 1);
                         break;
                 }
                 return;
             }
-            
+
         }
         Debug.LogError("Map: " + levelMap.name.ToString() + " " + zMap.ToString() + "\n Incorrect Color: " + c.ToString() + "\n Position: (" + x.ToString() + "x, " + y.ToString() + "y) from the bottom left of the screen");
-        
+
+    }
+
+    public int GetCrystalCount()
+    {
+        return crystalCount;
     }
 
 

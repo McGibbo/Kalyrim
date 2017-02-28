@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Physics.gravity = new Vector3(0, -speed * 0.5f);
     }
 
     // Update is called once per frame
@@ -66,11 +67,23 @@ public class PlayerController : MonoBehaviour
             standingOnGround = true;
             hasChangedGravity = false;
             SendMessageUpwards("ScreenShake");
+
         }
+        if (coll.gameObject.tag == "Death")
+            SendMessageUpwards("StartOverLevel");
     }
 
     void OnCollisionExit(Collision collision)
     {
         standingOnGround = false;
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.gameObject.tag == "Crystal")
+        {
+            SendMessageUpwards("CollectCrystal");
+            Destroy(coll.gameObject);
+        }
     }
 }

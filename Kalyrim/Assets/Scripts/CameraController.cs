@@ -16,7 +16,11 @@ public class CameraController : MonoBehaviour
     float originalYPos;
     [SerializeField]
     bool shakeCamera;
-    bool resetPosition = false;
+
+    void Start()
+    {
+
+    }
 
     void Update()
     {
@@ -28,7 +32,6 @@ public class CameraController : MonoBehaviour
         shakeDurationPrivate = shakeDuration;
         cameraShakeAmount = shakeAmount;
         originalYPos = transform.position.y;
-        resetPosition = true;
     }
 
     void ScreenShake()
@@ -42,10 +45,9 @@ public class CameraController : MonoBehaviour
                 shakeSpeed *= -1;
             }
         }
-        else if (resetPosition)
+        else
         {
-            transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
-            resetPosition = false;
+            //transform.position = new Vector3(transform.position.x, originalYPos, transform.position.z);
         }
     }
 
